@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  web:
+    container_name: web
+    build:
+      context: cc-proto-web
+      dockerfile: cc-proto-web/dev.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./cc-proto-web/src:/app/src
+      - ./cc-proto-web/public:/app/public
+    command: "yarn start"
+
+  server:
+    container_name: server
+    build:
+      dockerfile: cc-proto-server/dev.Dockerfile
+      context: cc-proto-server
+    volumes:
+      - ./cc-proto-server/src:/app/src
+    ports:
+      - "3001:3001"
+    command: "yarn run start:dev"
